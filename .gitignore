@@ -51,3 +51,7 @@ htmlcov/
 
 # Jupyter Notebook
 .ipynb_checkpoints/
+
+# Node modules (Tailwind y dependencias)
+node_modules/
+package-lock.json
