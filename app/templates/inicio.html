@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}XPRIN - Inicio{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6 flex items-center">
+    <i class="fas fa-tachometer-alt text-xprin mr-3"></i>
+    Panel de Control
+</h1>
+
+<!-- Tarjetas de estadísticas -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-xprin">
+        <div class="text-4xl font-bold text-xprin">{{ total }}</div>
+        <div class="text-gray-500">Total Productos</div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+        <div class="text-4xl font-bold text-blue-500">{{ bobinas }}</div>
+        <div class="text-gray-500">Bobinas</div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
+        <div class="text-4xl font-bold text-purple-500">{{ tintas }}</div>
+        <div class="text-gray-500">Tintas</div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-orange-500">
+        <div class="text-4xl font-bold text-orange-500">{{ polvo }}</div>
+        <div class="text-gray-500">Polvo</div>
+    </div>
+</div>
+
+<!-- Alerta de stock bajo -->
+{% if stock_bajo > 0 %}
+<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-6">
+    <i class="fas fa-exclamation-triangle mr-2"></i>
+    <strong>¡Atención!</strong> Tienes {{ stock_bajo }} productos con stock bajo (menos de 40 unidades).
+</div>
+{% endif %}
+
+<!-- Accesos rápidos -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+        <i class="fas fa-plus-circle text-5xl text-xprin mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Añadir Producto</h3>
+        <a href="{{ url_for('add') }}" class="inline-block bg-xprin text-white px-6 py-2 rounded hover:bg-xprin-dark transition">
+            Ir
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+        <i class="fas fa-boxes text-5xl text-xprin mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Ver Catálogo</h3>
+        <a href="{{ url_for('catalogo') }}" class="inline-block bg-xprin text-white px-6 py-2 rounded hover:bg-xprin-dark transition">
+            Ir
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+        <i class="fas fa-database text-5xl text-gray-500 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Mongo Express</h3>
+        <a href="http://localhost:8081" target="_blank" class="inline-block border border-gray-400 text-gray-600 px-6 py-2 rounded hover:bg-gray-100 transition">
+            Abrir
+        </a>
+    </div>
+</div>
+{% endblock %}

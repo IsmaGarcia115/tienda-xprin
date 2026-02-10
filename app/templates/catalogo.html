@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}XPRIN - Catálogo{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold flex items-center">
+        <i class="fas fa-boxes text-xprin mr-3"></i>
+        Catálogo de Productos
+    </h1>
+    <a href="{{ url_for('add') }}" class="bg-xprin text-white px-4 py-2 rounded hover:bg-xprin-dark transition">
+        <i class="fas fa-plus mr-1"></i> Nuevo Producto
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <table class="w-full">
+        <thead class="bg-xprin text-white">
+            <tr>
+                <th class="px-4 py-3 text-left">Nombre</th>
+                <th class="px-4 py-3 text-left">Categoría</th>
+                <th class="px-4 py-3 text-left">Subcategoría</th>
+                <th class="px-4 py-3 text-left">Marca</th>
+                <th class="px-4 py-3 text-left">Precio</th>
+                <th class="px-4 py-3 text-left">Stock</th>
+                <th class="px-4 py-3 text-left">Activo</th>
+                <th class="px-4 py-3 text-left">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-3">{{ producto.nombre }}</td>
+                <td class="px-4 py-3">
+                    <span class="bg-blue-500 text-white text-sm px-2 py-1 rounded">
+                        {{ producto.categoria }}
+                    </span>
+                </td>
+                <td class="px-4 py-3">{{ producto.subcategoria }}</td>
+                <td class="px-4 py-3">{{ producto.marca }}</td>
+                <td class="px-4 py-3">{{ producto.precio }} €</td>
+                <td class="px-4 py-3">
+                    {% if producto.stock < 40 %}
+                        <span class="bg-yellow-500 text-white text-sm px-2 py-1 rounded">
+                            {{ producto.stock }}
+                        </span>
+                    {% else %}
+                        <span class="bg-green-500 text-white text-sm px-2 py-1 rounded">
+                            {{ producto.stock }}
+                        </span>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                    {% if producto.activo %}
+                        <span class="bg-green-500 text-white text-sm px-2 py-1 rounded">Sí</span>
+                    {% else %}
+                        <span class="bg-gray-500 text-white text-sm px-2 py-1 rounded">No</span>
+                    {% endif %}
+                </td>
+                <td class="px-4 py-3">
+                    <a href="{{ url_for('update', id=producto._id) }}" class="text-blue-500 hover:text-blue-700 mr-2">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{{ url_for('delete', id=producto._id) }}" class="text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" class="px-4 py-8 text-center text-gray-500">No hay productos</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="bg-gray-50 px-4 py-3 text-gray-600">
+        Total: <strong>{{ productos|length }}</strong> productos
+    </div>
+</div>
+{% endblock %}

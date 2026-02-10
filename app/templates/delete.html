@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}XPRIN - Eliminar Producto{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <h1 class="text-3xl font-bold mb-6 flex items-center">
+        <i class="fas fa-trash text-red-500 mr-3"></i>
+        Eliminar Producto
+    </h1>
+    
+    <!-- Advertencia -->
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+        <i class="fas fa-exclamation-triangle mr-2"></i>
+        <strong>¡Atención!</strong> Esta acción no se puede deshacer.
+    </div>
+    
+    <!-- Datos del producto -->
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">¿Eliminar este producto?</h2>
+        
+        <table class="w-full">
+            <tr class="border-b">
+                <td class="py-2 font-semibold text-gray-600">Nombre</td>
+                <td class="py-2">{{ producto.nombre }}</td>
+            </tr>
+            <tr class="border-b">
+                <td class="py-2 font-semibold text-gray-600">Categoría</td>
+                <td class="py-2">{{ producto.categoria }}</td>
+            </tr>
+            <tr class="border-b">
+                <td class="py-2 font-semibold text-gray-600">Subcategoría</td>
+                <td class="py-2">{{ producto.subcategoria }}</td>
+            </tr>
+            <tr class="border-b">
+                <td class="py-2 font-semibold text-gray-600">Marca</td>
+                <td class="py-2">{{ producto.marca }}</td>
+            </tr>
+            <tr class="border-b">
+                <td class="py-2 font-semibold text-gray-600">Precio</td>
+                <td class="py-2">{{ producto.precio }} €</td>
+            </tr>
+            <tr>
+                <td class="py-2 font-semibold text-gray-600">Stock</td>
+                <td class="py-2">{{ producto.stock }} unidades</td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- Botones -->
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        
+        <div class="flex justify-between">
+            <a href="{{ url_for('catalogo') }}" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition">
+                <i class="fas fa-arrow-left mr-1"></i> Cancelar
+            </a>
+            <button type="submit" class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-700 transition">
+                <i class="fas fa-trash mr-1"></i> Sí, eliminar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

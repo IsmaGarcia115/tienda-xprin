@@ -1,0 +1,53 @@
+# Entorno virtual
+venv/
+.venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.so
+
+# Variables de entorno
+.env
+.env.local
+
+# IDE / Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Sistema operativo
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+
+# Distribución / Empaquetado
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints/

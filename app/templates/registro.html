@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}XPRIN - Registro{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-center">
+        <i class="fas fa-user-plus text-xprin mr-2"></i>
+        Crear Cuenta
+    </h1>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <!-- Nombre -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    <i class="fas fa-user mr-1"></i>
+                    {{ form.nombre.label.text }}
+                </label>
+                {{ form.nombre(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin", placeholder="Tu nombre") }}
+                {% for error in form.nombre.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Email -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    <i class="fas fa-envelope mr-1"></i>
+                    {{ form.email.label.text }}
+                </label>
+                {{ form.email(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin", placeholder="tu@email.com") }}
+                {% for error in form.email.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Contraseña -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    <i class="fas fa-lock mr-1"></i>
+                    {{ form.password.label.text }}
+                </label>
+                {{ form.password(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin", placeholder="Mínimo 6 caracteres") }}
+                {% for error in form.password.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Confirmar Contraseña -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    <i class="fas fa-lock mr-1"></i>
+                    {{ form.confirmar_password.label.text }}
+                </label>
+                {{ form.confirmar_password(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin", placeholder="Repite la contraseña") }}
+                {% for error in form.confirmar_password.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Botón -->
+            <button type="submit" class="w-full bg-xprin text-white py-2 rounded hover:bg-xprin-dark transition">
+                <i class="fas fa-user-plus mr-1"></i> Registrarse
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center text-gray-600">
+            ¿Ya tienes cuenta? 
+            <a href="{{ url_for('login') }}" class="text-xprin hover:underline">Inicia sesión</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

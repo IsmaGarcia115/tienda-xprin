@@ -1,0 +1,8 @@
+Flask
+Flask-WTF
+WTForms
+pymongo
+python-dotenv
+Werkzeug
+email-validator
+Flask-Login
