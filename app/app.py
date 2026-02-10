@@ -15,6 +15,7 @@ except ImportError:
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ElArzobispoDeConstantiplaSufreDeHipopotomonstrosesquipedaliofobiaDebidoASuAcidoDesoxirribonucleico'
 csrf = CSRFProtect(app)
+
 # Configuración de Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -23,7 +24,6 @@ login_manager.login_message = 'Debes iniciar sesión para acceder a esta página
 login_manager.login_message_category = 'danger'
 
 # Configuración de MongoDB
-# Usa variable de entorno o valor por defecto para Docker
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://isma:isma@localhost:27017/tienda?authSource=admin')
 client = MongoClient(MONGO_URI)
 db = client['tienda']
@@ -56,11 +56,10 @@ def cargar_opciones_formulario(form):
     form.subcategoria.choices = [('', 'Seleccione una subcategoría')] + [(s, s) for s in subcategorias]
     form.marca.choices = [('', 'Seleccione una marca')] + [(m, m) for m in marcas]
     
+    
+    
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    # Si ya está logueado, redirigir al inicio
-    if current_user.is_authenticated:
-        return redirect(url_for('inicio'))
     
     form = RegistroForm()
     
@@ -88,10 +87,7 @@ def registro():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # Si ya está logueado, redirigir al inicio
-    if current_user.is_authenticated:
-        return redirect(url_for('inicio'))
-    
+
     form = LoginForm()
     
     if form.validate_on_submit():
@@ -103,9 +99,7 @@ def login():
             login_user(user)
             flash(f'¡Bienvenido, {user.nombre}!', 'success')
             
-            # Redirigir a la página que intentaba acceder o al inicio
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('inicio'))
+            return redirect(url_for('inicio'))
         else:
             flash('Email o contraseña incorrectos', 'danger')
     
@@ -215,17 +209,12 @@ def delete(id):
     # Buscar el producto
     producto = productos_collection.find_one({'_id': ObjectId(id)})
     
-    if not producto:
-        flash('Producto no encontrado', 'danger')
-        return redirect(url_for('catalogo'))
-    
     if request.method == 'POST':
         # Eliminar el producto
         productos_collection.delete_one({'_id': ObjectId(id)})
         flash('Producto eliminado correctamente', 'success')
         return redirect(url_for('catalogo'))
-    
-    # Si es GET, mostrar confirmación
+
     return render_template('delete.html', producto=producto)
 
 if __name__ == '__main__':

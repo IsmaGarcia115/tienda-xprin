@@ -9,7 +9,6 @@ class ProductoForm(FlaskForm):
         DataRequired(),Length(min=3, max=100)
     ])
     
-    # Choices vacías - se rellenarán dinámicamente
     categoria = SelectField('Categoría', choices=[], validators=[
         DataRequired()
     ])
