@@ -4,6 +4,7 @@ from wtforms import StringField, TextAreaField, DecimalField, IntegerField, Sele
 from wtforms.validators import DataRequired, Length, NumberRange, Optional, Email, EqualTo
  
 
+
 class ProductoForm(FlaskForm):
     nombre = StringField('Nombre del Producto', validators=[
         DataRequired(),Length(min=3, max=100)
