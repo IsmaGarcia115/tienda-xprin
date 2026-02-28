@@ -1,3 +1,4 @@
+# type: ignore
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
@@ -5,6 +6,10 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde .env
+load_dotenv()
 
 try:
     from forms import ProductoForm, LoginForm, RegistroForm
@@ -13,7 +18,7 @@ except ImportError:
 
 # Configuración de la aplicación Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ElArzobispoDeConstantiplaSufreDeHipopotomonstrosesquipedaliofobiaDebidoASuAcidoDesoxirribonucleico'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 csrf = CSRFProtect(app)
 
 # Configuración de Flask-Login
@@ -24,7 +29,7 @@ login_manager.login_message = 'Debes iniciar sesión para acceder a esta página
 login_manager.login_message_category = 'danger'
 
 # Configuración de MongoDB
-MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://isma:isma@localhost:27017/tienda?authSource=admin')
+MONGO_URI = os.environ.get('MONGO_URI')
 client = MongoClient(MONGO_URI)
 db = client['tienda']
 productos_collection = db['productos']

@@ -3,110 +3,100 @@
 {% block title %}XPRIN - Añadir Producto{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6 flex items-center">
-        <i class="fas fa-plus-circle text-xprin mr-3"></i>
-        Añadir Nuevo Producto
-    </h1>
-    
-    <div class="bg-white rounded-lg shadow p-6">
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            
-            <!-- Nombre -->
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">
-                    {{ form.nombre.label.text }}
-                </label>
-                {{ form.nombre(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                {% for error in form.nombre.errors %}
-                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                {% endfor %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h1 class="fw-bold mb-4">
+            <i class="fas fa-plus-circle text-xprin me-2"></i>
+            Añadir Nuevo Producto
+        </h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    <!-- Nombre -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">{{ form.nombre.label.text }}</label>
+                        {{ form.nombre(class="form-control") }}
+                        {% for error in form.nombre.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Categoría y Subcategoría en fila -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">{{ form.categoria.label.text }}</label>
+                            {{ form.categoria(class="form-select") }}
+                            {% for error in form.categoria.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">{{ form.subcategoria.label.text }}</label>
+                            {{ form.subcategoria(class="form-select") }}
+                            {% for error in form.subcategoria.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Marca -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">{{ form.marca.label.text }}</label>
+                        {{ form.marca(class="form-select") }}
+                        {% for error in form.marca.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">{{ form.descripcion.label.text }}</label>
+                        {{ form.descripcion(class="form-control", rows="3") }}
+                    </div>
+
+                    <!-- Precio y Stock en fila -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">{{ form.precio.label.text }}</label>
+                            {{ form.precio(class="form-control") }}
+                            {% for error in form.precio.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">{{ form.stock.label.text }}</label>
+                            {{ form.stock(class="form-control") }}
+                            {% for error in form.stock.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Activo -->
+                    <div class="mb-4">
+                        <div class="form-check">
+                            {{ form.activo(class="form-check-input") }}
+                            <label class="form-check-label">{{ form.activo.label.text }}</label>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('catalogo') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-xprin">
+                            <i class="fas fa-save me-1"></i> Guardar Producto
+                        </button>
+                    </div>
+                </form>
             </div>
-            
-            <!-- Categoría y Subcategoría en fila -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-gray-700 font-semibold mb-2">
-                        {{ form.categoria.label.text }}
-                    </label>
-                    {{ form.categoria(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                    {% for error in form.categoria.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                
-                <div>
-                    <label class="block text-gray-700 font-semibold mb-2">
-                        {{ form.subcategoria.label.text }}
-                    </label>
-                    {{ form.subcategoria(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                    {% for error in form.subcategoria.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Marca -->
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">
-                    {{ form.marca.label.text }}
-                </label>
-                {{ form.marca(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                {% for error in form.marca.errors %}
-                    <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                {% endfor %}
-            </div>
-            
-            <!-- Descripción -->
-            <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">
-                    {{ form.descripcion.label.text }}
-                </label>
-                {{ form.descripcion(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin", rows="3") }}
-            </div>
-            
-            <!-- Precio y Stock en fila -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-gray-700 font-semibold mb-2">
-                        {{ form.precio.label.text }}
-                    </label>
-                    {{ form.precio(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                    {% for error in form.precio.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                
-                <div>
-                    <label class="block text-gray-700 font-semibold mb-2">
-                        {{ form.stock.label.text }}
-                    </label>
-                    {{ form.stock(class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-xprin") }}
-                    {% for error in form.stock.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Activo -->
-            <div class="mb-6">
-                <label class="flex items-center">
-                    {{ form.activo(class="mr-2") }}
-                    <span class="text-gray-700">{{ form.activo.label.text }}</span>
-                </label>
-            </div>
-            
-            <!-- Botones -->
-            <div class="flex justify-between">
-                <a href="{{ url_for('catalogo') }}" class="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition">
-                    <i class="fas fa-arrow-left mr-1"></i> Cancelar
-                </a>
-                <button type="submit" class="bg-xprin text-white px-6 py-2 rounded hover:bg-xprin-dark transition">
-                    <i class="fas fa-save mr-1"></i> Guardar Producto
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 {% endblock %}
